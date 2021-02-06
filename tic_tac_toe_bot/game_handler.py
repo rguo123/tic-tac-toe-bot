@@ -12,7 +12,7 @@ def play_game():
     last_move = -1
     turn = 1
 
-    while last_move != game.DRAW and last_move != game.X_WINS and last_move != game.O_WINS:
+    while last_move != TicTacToe.DRAW and last_move != TicTacToe.X_WINS and last_move != TicTacToe.O_WINS:
         if turn % 2 == 1:
             last_move = bot1.play_move(game)
         else:

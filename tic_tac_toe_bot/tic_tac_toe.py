@@ -1,14 +1,12 @@
 # tic_tac_toe.py : Handles tic tac toe game
 
 class TicTacToe:
-
+    O_WINS = 0
+    X_WINS = 1
+    DRAW = 2
+    END_MOVE = 3
+    ILLEGAL_MOVE = 4
     def __init__(self):
-        self.O_WINS = 0
-        self.X_WINS = 1
-        self.DRAW = 2
-        self.END_MOVE = 3
-        self.ILLEGAL_MOVE = 4
-
         self.board = self.create_board()
 
     def create_board(self):
@@ -23,12 +21,12 @@ class TicTacToe:
         if self._is_move_legal(x, y):
             self.board[x][y] = marker
         else:
-            return self.ILLEGAL_MOVE
+            return TicTacToe.ILLEGAL_MOVE
         if self.check_is_winner(marker):
-            return self.O_WINS if marker == 'o' else self.X_WINS
+            return TicTacToe.O_WINS if marker == 'o' else TicTacToe.X_WINS
         if self.check_board_full():
-            return self.DRAW
-        return self.END_MOVE
+            return TicTacToe.DRAW
+        return TicTacToe.END_MOVE
 
 
     def check_is_winner(self, marker: str):
@@ -109,13 +107,13 @@ class TicTacToe:
                 printable_row += "|"
         return printable_row
 
-
-    def get_serialized_board(self):
+    @staticmethod
+    def get_serialized_board(board):
         empty_marker = "_"
         board_string = ""
         for row in range(3):
             for col in range(3):
-                pos = self.board[row][col]
+                pos = board[row][col]
                 if pos == "":
                     board_string += empty_marker
                 else:
@@ -137,7 +135,7 @@ def test():
     game.update_board(2, 2, 'o')
     game.print_board()
     print(game.check_is_winner('o'))
-    print(game.get_serialized_board())
+    print(TicTacToe.get_serialized_board(game.get_board()))
 
 
 if __name__ == "__main__":
